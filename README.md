@@ -4,7 +4,7 @@
 
 ## Lightroom style by date photo organization with MD5 file verification
 
-This script organizes files into a structured folder hierarchy, the same one used by Adobe Lightroom (`YYYY/YYYY-MM-DD`), based on their modification date and generates MD5 hashes for integrity verification. It also logs all actions performed during the process.
+This script organizes files into a structured folder hierarchy, inspired by Adobe Lightroom (`YYYY/YYYY-MM-DD`), based on their modification date and generates MD5 hashes for integrity verification. It also logs all actions performed during the process.
 
 ## Features
 - Automatically organizes files by date into a nested folder structure.
@@ -56,12 +56,12 @@ chmod +x lightmove.sh
 
 ### 2. Verify Files
 
-Use the `verify_md5.sh` script to verify files against their `md5_checksums.txt`.
+Use the `lightmove_verify.sh` script to verify files against their `md5_checksums.txt`.
 
 #### Steps:
 1. Run the script:
    ```bash
-   ./verify_md5.sh
+   ./lightmove_verify.sh
    ```
 2. Drag and drop one or more directories into the terminal (e.g., `/home/user/organized_photos/2023`).
 3. Press **Enter** to start the verification.
