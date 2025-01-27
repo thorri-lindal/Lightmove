@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Prompt for source and destination directories
-echo "Drag and drop the source directory (where your files are located) into this terminal:"
+echo "Drag and drop the source directory or directories into this terminal:"
 read -r SRC_DIR
 SRC_DIR=$(echo "$SRC_DIR" | xargs) # Remove surrounding quotes if any
 
-echo "Drag and drop the destination directory (where you want the organized files) into this terminal:"
+echo "Drag and drop the destination directory into this terminal:"
 read -r DEST_DIR
 DEST_DIR=$(echo "$DEST_DIR" | xargs) # Remove surrounding quotes if any
 
