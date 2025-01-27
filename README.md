@@ -2,7 +2,7 @@
 # Lightmove
 ![Alt text](https://raw.githubusercontent.com/thorri-lindal/Lightmove/refs/heads/main/lightmove.png "lightmove")
 
-## Lightroom style by date photo organization with MD5 file verification
+## Photo organization with XXHash file verification
 
 This script organizes files into a structured folder hierarchy, inspired by Adobe Lightroom (`YYYY/YYYY-MM-DD`), based on their modification date and generates MD5 hashes for integrity verification. It also logs all actions performed during the process.
 
