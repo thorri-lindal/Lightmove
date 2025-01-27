@@ -54,35 +54,61 @@ chmod +x lightmove.sh
 
 ---
 
-## Verifying Files
+### 2. Verify Files
 
-### Verify Files in a Single Folder
-Run this command in a folder containing the `md5_checksums.txt` file:
-```bash
-md5sum -c md5_checksums.txt
-```
+Use the `verify_md5.sh` script to verify files against their `md5_checksums.txt`.
 
-### Verify Files Across All Folders
-FIXED
+#### Steps:
+1. Run the script:
+   ```bash
+   ./verify_md5.sh
+   ```
+2. Drag and drop one or more directories into the terminal (e.g., `/home/user/organized_photos/2023`).
+3. Press **Enter** to start the verification.
+
+#### Example:
+- Input:
+  ```
+  Drag and drop the directories you want to verify: 
+  '/home/user/organized_photos/2023/2023-05-01' '/home/user/organized_photos/2023/2023-12-25'
+  ```
+- Output:
+  ```
+  Starting verification in /home/user/organized_photos/2023/2023-05-01...
+  Verifying files in /home/user/organized_photos/2023/2023-05-01
+  photo1.jpg: OK
+  Verification completed for /home/user/organized_photos/2023/2023-05-01.
+
+  Starting verification in /home/user/organized_photos/2023/2023-12-25...
+  Verifying files in /home/user/organized_photos/2023/2023-12-25
+  photo2.png: OK
+  Verification completed for /home/user/organized_photos/2023/2023-12-25.
+
+  All directories have been verified.
+  ```
 
 ---
 
-## Example Workflow
+## Scripts in This Project
 
-1. Drag and drop `/home/user/photos` (source) into the terminal.
-2. Drag and drop `/home/user/organized_photos` (destination) into the terminal.
-3. The script organizes files by date:
-   ```
-   /home/user/organized_photos/
-   ├── 2023/
-   │   ├── 2023-05-01/
-   │   │   ├── photo1.jpg
-   │   │   ├── photo2.png
-   │   │   └── md5_checksums.txt
-   │   └── 2023-12-25/
-   └── 2024/
-   ```
-4. Use `md5sum -c` to verify files’ integrity.
+1. **organize_files_with_log.sh**:
+   - Organizes photos into `YYYY/YYYY-MM-DD` folders based on modification dates.
+   - Generates `md5_checksums.txt` for each folder.
+   - Saves a log of all actions performed.
+
+2. **verify_md5.sh**:
+   - Verifies files using the `md5_checksums.txt` files.
+   - Supports drag-and-drop for multiple directories.
+## Scripts in This Project
+
+1. **organize_files_with_log.sh**:
+   - Organizes photos into `YYYY/YYYY-MM-DD` folders based on modification dates.
+   - Generates `md5_checksums.txt` for each folder.
+   - Saves a log of all actions performed.
+
+2. **verify_md5.sh**:
+   - Verifies files using the `md5_checksums.txt` files.
+   - Supports drag-and-drop for multiple directories.
 
 ---
 
