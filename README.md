@@ -1,5 +1,6 @@
 
 # Lightmove
+![Alt text](https://raw.githubusercontent.com/thorri-lindal/Lightmove/refs/heads/main/lightmove.png "lightmove")
 
 ## Lightroom style by date photo organization with MD5 file verification
 
