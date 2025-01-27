@@ -38,16 +38,16 @@ chmod +x lightmove.sh
 ```
 
 ### 4. Drag and Drop Folders
-- When prompted, drag and drop the **source directory** (where your files are) into the terminal.
-- Drag and drop the **destination directory** (where organized files should be saved).
+- When prompted, drag and drop the **source directory** (where your photos are) into the terminal.
+- Drag and drop the **destination directory** (where organized photos should be saved).
 
 ---
 
 ## Output
 1. **Organized Files**:
-   - Files are moved into a folder structure: `YYYY/YYYY-MM-DD`.
+   - photos are moved into a folder structure: `YYYY/YYYY-MM-DD`.
 2. **MD5 Checksums**:
-   - Each folder contains a `md5_checksums.txt` file with hashes of all files in that folder.
+   - Each folder contains a `md5_checksums.txt` file with hashes of all photos in that folder.
 3. **Log File**:
    - A log file (`organization_log_YYYYMMDD_HHMMSS.log`) is saved in the destination directory.
 
@@ -62,21 +62,7 @@ md5sum -c md5_checksums.txt
 ```
 
 ### Verify Files Across All Folders
-Use the provided script below to verify all files in the destination directory:
-```bash
-#!/bin/bash
-DEST_DIR="/path/to/destination"
-find "$DEST_DIR" -name "md5_checksums.txt" | while read -r checksum_file; do
-    echo "Verifying files in $(dirname "$checksum_file")"
-    md5sum -c "$checksum_file"
-done
-```
-
-Save this script as `verify_md5.sh`, make it executable, and run:
-```bash
-chmod +x verify_md5.sh
-./verify_md5.sh
-```
+FIXED
 
 ---
 
