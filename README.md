@@ -112,5 +112,15 @@ Use the `lightmove_verify.sh` script to verify files against their `md5_checksum
 
 ---
 
+---
+## Future Updates
+
+- [ ] Combine organizing and verification into a single script.
+- [ ] Add a `--dry-run` option for previewing actions.
+- [ ] Implement multi-threaded processing for faster performance.
+- [ ] Create a GUI with Electron for drag-and-drop support.
+- [ ] Replace MD5 with xxHash for faster hash generation.
+---
+
 ## License
 This project is licensed under the [MIT License](LICENSE).
