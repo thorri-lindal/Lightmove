@@ -61,7 +61,7 @@ Use the `lightmove_verify.sh` script to verify files against their `md5_checksum
 #### Steps:
 1. Run the script:
    ```bash
-   ./lightmove_verify.sh
+   ./verify_lightmove.sh
    ```
 2. Drag and drop one or more directories into the terminal (e.g., `/home/user/organized_photos/2023`).
 3. Press **Enter** to start the verification.
