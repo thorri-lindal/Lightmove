@@ -54,6 +54,25 @@ chmod +x lightmove.sh
 
 ---
 
+#### Example:
+- Input:
+  ```
+  Drag and drop the source directory: /home/user/photos
+  Drag and drop the destination directory: /home/user/organized_photos
+  ```
+- Output:
+  ```
+  /home/user/organized_photos/
+  ├── 2023/
+  │   ├── 2023-05-01/
+  │   │   ├── photo1.jpg
+  │   │   └── md5_checksums.txt
+  │   └── 2023-12-25/
+  │       ├── photo2.png
+  │       └── md5_checksums.txt
+  ```
+---
+
 ### 2. Verify Files
 
 Use the `lightmove_verify.sh` script to verify files against their `md5_checksums.txt`.
