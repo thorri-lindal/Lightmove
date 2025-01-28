@@ -1,22 +1,38 @@
-
 # Lightmove
 ![Alt text](https://raw.githubusercontent.com/thorri-lindal/Lightmove/refs/heads/main/lightmove.png "lightmove")
 
-## Photo organization with XXHash file verification
+## Photo Organization with xxHash and Verification
 
-This script organizes files into a structured folder hierarchy, inspired by Adobe Lightroom (`YYYY/YYYY-MM-DD`), based on their modification date and generates MD5 hashes for integrity verification. It also logs all actions performed during the process.
-
-## Features
-- Automatically organizes files by date into a nested folder structure.
-- Generates `md5_checksums.txt` for each folder to verify file integrity.
-- Saves a detailed log file with actions and errors.
-- Supports drag-and-drop input for source and destination directories.
+This project provides tools to organize files into a structured folder hierarchy (`YYYY/YYYY-MM-DD`) based on their modification date, with xxHash-based integrity verification. It also logs all actions performed during the process.
 
 ---
 
 ## Requirements
 - **Operating System**: Linux, macOS, or Windows with WSL.
 - **Utilities**: `rsync`, `md5sum`, and `find` (installed by default on most Unix-based systems).
+
+---
+
+## Features
+
+1. **File Organization**:
+   - Automatically organizes files into a nested folder structure based.
+   - Supports filtering by file type, size, and skipping existing files.
+2. **Drag-and-drop support**:
+	-Supports drag-and-drop input for source and destination directories.
+   
+4. **Integrity Verification**:
+   - Generates `checksums.txt` with xxHash for each folder.
+   - Logs verification results and identifies missing or modified files.
+
+4. **Enhanced Logging**:
+   - Detailed logs are saved to track operations and errors.
+
+5. **Parallel Processing**:
+   - Multi-threaded for faster performance.
+
+6. **Customization Options**:
+   - Supports dry-run mode, progress bars, and user-defined filters.
 
 ---
 
@@ -28,117 +44,96 @@ git clone https://github.com/thorri-lindal/Lightmove.git
 cd Lightmove
 ```
 
-### 2. Make the Script Executable
+### 2. Activate the Virtual Environment
+Activate your pre-configured virtual environment to ensure all dependencies are correctly set up.
+
+For Bash or Zsh
+```
+source venv/bin/activate
+```
+For Fish
+```
+source venv/bin/activate.fish
+```
+For PowerShell
+```
+.\venv\Scripts\Activate.ps1
+```
+For Command Prompt
+```
+venv\Scripts\activate.bat
+```
+### 3. Organize Files
+Run the script:
 ```bash
-chmod +x lightmove.sh
+python lightmove.py --progress --parallel-jobs-8 --dry
+Source directory (drag and drop or type path): '/home/user/photos' 
+Destination directory (drag and drop or type path): '/home/user/sorted-photos'
 ```
 
-### 3. Run the Script
-```bash
-./lightmove.sh
-```
-
-### 4. Drag and Drop Folders
-- When prompted, drag and drop the **source directory** (where your photos are) into the terminal.
-- Drag and drop the **destination directory** (where organized photos should be saved).
-
----
-
-## Output
-1. **Organized Files**:
-   - photos are moved into a folder structure: `YYYY/YYYY-MM-DD`.
-2. **MD5 Checksums**:
-   - Each folder contains a `md5_checksums.txt` file with hashes of all photos in that folder.
-3. **Log File**:
-   - A log file (`organization_log_YYYYMMDD_HHMMSS.log`) is saved in the destination directory.
-
----
+#### Optional Arguments:
+- `--file-type`: Specify file extensions (e.g., `--file-type .jpg .png`).
+- `--min-size` and `--max-size`: Filter by file size in bytes.
+- `--skip-existing`: Skip already organized files.
+- `--dry-run`: Preview actions without making changes.
+- `--progress`: Display a progress bar.
 
 #### Example:
-- Input:
+```bash
+python lightmove.py
+Source directory (drag and drop or type path): '/home/user/pics' 
+Destination directory (drag and drop or type path): '/home/user/pics-sorted'
+```
+
+---
+
+### 4. Verify Files
+Run the verification script:
+```bash
+python verify.py --progress
+```
+
+Follow the prompts to specify the directory containing `checksums.txt`.
+
+#### Example Output:
+```plaintext
+Starting checksum verification in '/path/to/organized_files'...
+MATCH: photo1.jpg
+MISMATCH: photo2.png (expected: <hash>, actual: <hash>)
+MISSING: photo3.jpg
+Verification completed with mismatches or missing files.
+```
+---
+
+## Example Output
+
+- **Organized Files**:
   ```
-  Drag and drop the source directory: /home/user/photos
-  Drag and drop the destination directory: /home/user/organized_photos
-  ```
-- Output:
-  ```
-  /home/user/organized_photos/
+  /destination/
   ├── 2023/
   │   ├── 2023-05-01/
   │   │   ├── photo1.jpg
-  │   │   └── md5_checksums.txt
-  │   └── 2023-12-25/
-  │       ├── photo2.png
-  │       └── md5_checksums.txt
+  │   │   └── checksums.txt
+  └── 2023-12-25/
+      ├── photo2.png
+      └── checksums.txt
   ```
----
 
-### 2. Verify Files
-
-Use the `lightmove_verify.sh` script to verify files against their `md5_checksums.txt`.
-
-#### Steps:
-1. Run the script:
-   ```bash
-   ./verify_lightmove.sh
-   ```
-2. Drag and drop one or more directories into the terminal (e.g., `/home/user/organized_photos/2023`).
-3. Press **Enter** to start the verification.
-
-#### Example:
-- Input:
+- **Logs**:
   ```
-  Drag and drop the directories you want to verify: 
-  '/home/user/organized_photos/2023/2023-05-01' '/home/user/organized_photos/2023/2023-12-25'
-  ```
-- Output:
-  ```
-  Starting verification in /home/user/organized_photos/2023/2023-05-01...
-  Verifying files in /home/user/organized_photos/2023/2023-05-01
-  photo1.jpg: OK
-  Verification completed for /home/user/organized_photos/2023/2023-05-01.
-
-  Starting verification in /home/user/organized_photos/2023/2023-12-25...
-  Verifying files in /home/user/organized_photos/2023/2023-12-25
-  photo2.png: OK
-  Verification completed for /home/user/organized_photos/2023/2023-12-25.
-
-  All directories have been verified.
+  organize_files.log
+  xxhash3_verification.log
   ```
 
 ---
 
-## Scripts in This Project
-
-1. **organize_files_with_log.sh**:
-   - Organizes photos into `YYYY/YYYY-MM-DD` folders based on modification dates.
-   - Generates `md5_checksums.txt` for each folder.
-   - Saves a log of all actions performed.
-
-2. **verify_md5.sh**:
-   - Verifies files using the `md5_checksums.txt` files.
-   - Supports drag-and-drop for multiple directories.
-## Scripts in This Project
-
-1. **organize_files_with_log.sh**:
-   - Organizes photos into `YYYY/YYYY-MM-DD` folders based on modification dates.
-   - Generates `md5_checksums.txt` for each folder.
-   - Saves a log of all actions performed.
-
-2. **verify_md5.sh**:
-   - Verifies files using the `md5_checksums.txt` files.
-   - Supports drag-and-drop for multiple directories.
-
----
-
----
 ## Future Updates
 
-- [ ] Combine organizing and verification into a single script.
-- [ ] Add a `--dry-run` option for previewing actions.
-- [ ] Implement multi-threaded processing for faster performance.
-- [ ] Create a GUI with Electron for drag-and-drop support.
-- [X] Replace MD5 with xxHash for faster hash generation.
+- [X] Rewrite in Python3
+- [ ] Advanced file type and metadata filtering.
+- [ ] Integrate more hashing algorithms for flexibility.
+- [X] Replace MD5 with xxHash for performance gains.
+
 ---
 
 ## License
